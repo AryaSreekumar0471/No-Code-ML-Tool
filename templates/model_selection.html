@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Select Model </title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="{{ url_for('static', filename='css/model_selection.css') }}" rel="stylesheet"/>
+</head>
+<body class="bg-light" style="min-height: 100vh; display: flex; flex-direction: column;">
+
+  <!-- NAVBAR with OFFCANVAS BUTTON -->
+  <nav class="navbar navbar-dark" style="background-color: #1877F2;">
+    <div class="container-fluid">
+      <span class="navbar-brand logo">SimpliML</span>
+      <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- OFFCANVAS MENU (matches your other pages) -->
+  <div class="offcanvas offcanvas-end" tabindex="-1" id="sidebar">
+    <div class="offcanvas-header">
+      <h5 id="sidebarLabel" class="offcanvas-title">Menu</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+    </div>
+    <div class="offcanvas-body">
+      <ul class="list-unstyled">
+        <li><a href="/">Home</a></li>
+        <li><a href="/upload">Upload</a></li>
+        <li><a href="/preprocess_page">Preprocess</a></li>
+        <li><a href="/select_features">Feature Selection</a></li>
+        <li><a href="/select_features">Train/Test Split</a></li>
+        <li><a href="/class_balance">Class balence </a></li>
+        
+      </ul>
+    </div>
+  </div>
+
+  <main class="flex-grow-1 d-flex flex-column justify-content-center align-items-center" style="min-height: 75vh;">
+    <h2 class="text-center mb-5 mt-2" style="color:#232323;">Select Model</h2>
+    <div class="d-flex flex-wrap justify-content-center align-items-center gap-4 model-card-container">
+      <!-- Decision Tree -->
+      <div class="model-card" onclick="window.location.href='/train_decision_tree'">
+        <img src="{{ url_for('static', filename='images/DT.png') }}" alt="Decision Tree" class="model-icon mb-3"/>
+        <h4 class="fw-bold">Decision Tree</h4>
+        <p class="desc mb-0">Flowchart-like model that makes predictions by splitting your data into branches based on feature values.</p>
+      </div>
+      <!-- KNN -->
+      <div class="model-card" onclick="window.location.href='/train_knn'">
+        <img src="{{ url_for('static', filename='images/KNN.png') }}" alt="K-Nearest Neighbour" class="model-icon mb-3"/>
+        <h4 class="fw-bold">K-Nearest Neighbour</h4>
+        <p class="desc mb-0">Instance-based model that predicts by voting among closest training examples.</p>
+      </div>
+      <!-- Logistic Regression -->
+      <div class="model-card" onclick="window.location.href='/train_logistic'">
+        <img src="{{ url_for('static', filename='images/LR.png') }}" alt="Logistic Regression" class="model-icon mb-3"/>
+        <h4 class="fw-bold">Logistic Regression</h4>
+        <p class="desc mb-0">Statistical model that predicts probability using the sigmoid curve.</p>
+      </div>
+    </div>
+  </main>
+  
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

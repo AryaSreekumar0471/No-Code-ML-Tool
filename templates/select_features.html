@@ -1,0 +1,167 @@
+<!-- templates/select_features.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Select Features &amp; Targets</title>
+
+  <!-- Bootstrap CSS -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  />
+
+  <!-- Your feature‐selection CSS -->
+  <link
+    href="{{ url_for('static', filename='css/select_features.css') }}"
+    rel="stylesheet"
+  />
+</head>
+
+<body class="bg-white">
+  <!-- NAVBAR -->
+  <nav class="navbar navbar-dark" style="background-color:#1877F2;">
+    <div class="container-fluid">
+      <span class="navbar-brand logo">SimpliML</span>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="offcanvas"
+        data-bs-target="#sidebar"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- SIDEBAR -->
+  <div
+    class="offcanvas offcanvas-end"
+    tabindex="-1"
+    id="sidebar"
+  >
+    <div class="offcanvas-header">
+      <h5 id="sidebarLabel">Menu</h5>
+      <button
+        type="button"
+        class="btn-close text-reset"
+        data-bs-dismiss="offcanvas"
+      ></button>
+    </div>
+    <div class="offcanvas-body">
+      <ul class="list-unstyled">
+         <li><a href="/">Home</a></li>
+        <li><a href="/upload">Upload</a></li>
+        <li><a href="/preprocess_page">Preprocess</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div class="container py-5">
+    <h1 class="text-center mb-4">Select Features and Targets</h1>
+    <div class="row gx-4">
+
+      <!-- LEFT PANEL: variable buttons -->
+      <div class="col-md-6 mb-4">
+        <div id="featuresBox" class="box3d p-4 text-center">
+          <h5 class="mb-3">Features</h5>
+          <div
+            id="varsContainer"
+            class="d-flex flex-wrap justify-content-center"
+          >
+            {% for col in columns %}
+            <button
+              class="btn btn-outline-primary var-btn m-2"
+              data-col="{{ col }}"
+            >
+              {{ col }}
+            </button>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT PANEL: distribution preview -->
+      <div class="col-md-6 mb-4">
+        <div class="box3d p-4" id="previewBox">
+          <h5>Feature Distribution</h5>
+          <p>
+            Click a feature on the left to see its distribution here.
+            Numeric variables will show a histogram; categoricals a bar chart.
+          </p>
+          <!-- Chart canvas will be injected here -->
+        </div>
+      </div>
+
+  <!--   TARGET & FEATURE SECTION  -->
+  
+<div class="row gx-4 my-5">
+  <!-- SELECT TARGET (no 3d box) -->
+  <div class="col-12 text-center mb-4">
+    <h3>Select Target</h3>
+    <p class="text-muted">
+      The target variable is the one outcome you want your model to predict (eg: “heart disease”, “Diabetes”).<br>
+      Please select the target variable from the dropdown below.
+    </p>
+    <select id="targetSelect" class="form-select mx-auto" style="max-width:320px;">
+      <option value="" disabled selected>Select…</option>
+      {% for col in columns %}
+      <option value="{{ col }}">{{ col }}</option>
+      {% endfor %}
+    </select>
+  </div>
+
+  <!-- SELECT FEATURES (3/4 width) -->
+  <div class="col-12 text-center">
+    <h3>Select Features</h3>
+    <p class="text-muted mb-3">
+      The features are the input variables you will use to predict the target (eg: “age”, “gender”).<br>
+      The variable you select as your target will be removed from the list below to prevent it from leaking into the model.
+       <br>
+      Choose individual features or click “Select All”.
+    </p>
+
+    <div class="box3d mx-auto p-4" style="max-width:75vw;">
+      <div id="selectAllRow" class="form-check mb-3">
+        <input class="form-check-input" type="checkbox" id="selectAll">
+        <label class="form-check-label" for="selectAll">Select All</label>
+      </div>
+      <div id="featuresList" class="form-check-group">
+        {% for col in columns %}
+        <div class="form-check">
+          <input class="form-check-input feature-checkbox"
+                 type="checkbox"
+                 value="{{ col }}"
+                 id="feat_{{ loop.index }}">
+          <label class="form-check-label" for="feat_{{ loop.index }}">{{ col }}</label>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+
+  <!-- NEXT BUTTON -->
+  <div class="d-flex justify-content-end align-items-center mt-4">
+    <button id="nextBtn" class="btn btn-primary" disabled>Next →</button>
+  </div>
+
+
+  <!-- Chart.js (needs to load before your JS) -->
+  <script
+    src="https://cdn.jsdelivr.net/npm/chart.js@4.3.0/dist/chart.umd.min.js"
+    defer
+  ></script>
+  <!-- Bootstrap JS bundle -->
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+  ></script>
+  <!-- Your feature‐selection logic -->
+  <script
+    src="{{ url_for('static', filename='js/select_features.js') }}"
+    defer
+  ></script>
+</body>
+</html>

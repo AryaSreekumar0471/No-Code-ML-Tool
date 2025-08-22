@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Data Overview &amp; Split</title>
+  <!-- Bootstrap CSS -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  />
+  <!-- page CSS -->
+  <link
+    href="{{ url_for('static', filename='css/data_overview.css') }}"
+    rel="stylesheet"
+  />
+</head>
+<body class="bg-light">
+
+  <!-- NAVBAR -->
+  <nav class="navbar navbar-dark bg-primary">
+    <div class="container-fluid">
+      <span class="navbar-brand logo">SimpliML</span>
+      <button class="navbar-toggler" type="button"
+              data-bs-toggle="offcanvas" data-bs-target="#sidebar">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- OFFCANVAS MENU -->
+  <div class="offcanvas offcanvas-end" tabindex="-1" id="sidebar">
+    <div class="offcanvas-header">
+      <h5 id="sidebarLabel" class="offcanvas-title">Menu</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+    </div>
+    <div class="offcanvas-body">
+      <ul class="list-unstyled">
+        <li><a href="/">Home</a></li>
+        <li><a href="/upload">Upload</a></li>
+        <li><a href="/preprocess_page">Preprocess</a></li>
+        <li><a href="/select_features">Feature Selection</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="container py-4">
+
+    <!-- 1) Features & Target Summary -->
+    <div class="box3d summary-box mb-5">
+      <h2 class="text-center mb-3">Selected Features &amp; Target</h2>
+      <div class="chip-container mb-3">
+        {% for f in features %}
+          <span class="chip">{{ f }}</span>
+        {% endfor %}
+        <span class="chip target-chip">{{ target }}</span>
+      </div>
+      <form method="post" class="text-center mb-0">
+        <button class="btn btn-outline-dark" name="action" value="reselect">
+          Reselect Features &amp; Target
+        </button>
+      </form>
+    </div>
+
+    <!-- 2) Train/Test Split Section -->
+    <h2 class="text-center mb-3">Train and Test Split</h2>
+    <p class="text-center explanation">
+      We split your cleaned data into a <strong>training set</strong>—used to build the model—and a
+      <strong>test set</strong>—used to evaluate its performance on unseen data. Adjust the ratio
+      below to control how much data goes to training vs. testing.
+    </p>
+
+    <div class="box3d split-box mb-4 mx-auto">
+      <h3 class="text-center mb-3">Select Ratio</h3> 
+      <!-- Slider UI -->
+      <div class="slider-container px-4 py-3">
+        <input
+          type="range"
+          id="ratioSlider"
+          min="10" max="90" step="10"
+          value="{{ 100 - default_ratio }}"
+          class="form-range"
+        />
+
+        <!-- tick labels -->
+        <div class="slider-labels mt-2">
+          {% for p in [90,80,70,60,50,40,30,20,10] %}
+            <span>{{ p }}:{{ 100-p }}</span>
+          {% endfor %}
+        </div>
+
+        <!-- Live counts display -->
+        <div class="counts-display mt-3 text-center">
+          <strong id="countDisplay">
+            Train: {{ (total_rows * default_ratio // 100)|int }} rows
+            &nbsp;|&nbsp;
+            Test:  {{ (total_rows * (100-default_ratio) // 100)|int }} rows
+          </strong>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3) Next Button / Form -->
+    <div class="text-end mb-5">
+      <form id="splitForm" method="post">
+        <input type="hidden" id="ratioInput" name="ratio" value="{{ default_ratio }}" />
+        <button type="submit" class="btn btn-primary">Next</button>
+      </form>
+    </div>
+
+  </div>
+
+  <!-- Bootstrap & Custom JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>const TOTAL_ROWS = Number("{{ total_rows }}");</script>
+  <script src="{{ url_for('static', filename='js/data_overview.js') }}"></script>
+</body>
+</html>

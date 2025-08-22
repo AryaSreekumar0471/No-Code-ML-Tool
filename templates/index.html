@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>SimpliML</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="logo">SimpliML</div>
+    <div class="nav-links">
+      <a href="/">Home</a>
+      <a href="/upload" class="start-btn">START</a>
+    </div>
+  </nav>
+
+  <main class="hero">
+    <h1 class="hero-title">Welcome to <span class="highlight">SimpliML</span></h1>
+    <p class="hero-subtitle">
+      An intuitive web tool for healthcare professionals to preprocess data,<br>
+      train models, and explore clear, interpretable results—no programming required.
+    </p>
+    <a href="/upload" class="start-btn hero-btn">START</a>
+  </main>
+
+  <hr class="section-divider">
+
+  <!-- NEW: SimpliML Workflow section -->
+  <section id="workflow" class="workflow-wrap">
+    <h2 class="workflow-title">SimpliML Workflow</h2>
+
+    <div class="workflow-card">
+      <img
+        src="{{ url_for('static', filename='images/simpliML workflow.png') }}"
+        alt="SimpliML workflow diagram"
+        class="workflow-img"
+        loading="lazy"
+      >
+      <p>
+          The <b>SimpliML pipeline</b> guides you through every step of building a <b>machine learning model</b> for <b>healthcare datasets</b> without coding. The workflow starts with <b>uploading a dataset</b>, followed by <b>preprocessing</b> where you can <b>remove duplicates</b> or <b>missing values</b>, <b>scale numeric features</b>, <b>encode categorical features</b>, and <b>handle outliers</b>. Next, you <b>select the target</b> and <b>features</b>, then apply a <b>train–test split</b> to divide the data. <b>Class balancing</b> is applied only to the training set, and <b>k-fold cross-validation</b> can be configured to improve reliability. You then <b>choose a model</b> — <b>Decision Tree</b>, <b>KNN</b>, or <b>Logistic Regression</b> and proceed to <b>training with visualizations</b>. Depending on the model, the system generates <b>feature importance</b>, <b>decision boundaries</b>, <b>precision–recall curves</b>, and <b>confusion matrices</b>. A detailed <b>Excel report</b> of preprocessing, data splits, balancing, validation, and results can be downloaded, and you can <b>experiment interactively</b> with the trained model to test predictions.
+      </p>
+
+    </div>
+  </section>
+
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

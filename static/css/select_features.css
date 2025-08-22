@@ -1,0 +1,201 @@
+
+:root{
+  --primary:#1877F2;
+  --primary-hover:#155db2;
+  --primary-dark:#0f51a6;
+  --success:#28a745;
+  --text-dark:#333;
+  --white:#fff;
+}
+
+/* Match the header styling from home page */
+.navbar{
+  background-color: var(--primary) !important;
+  color: var(--white);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  min-height: 43px;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.logo{ 
+  font-weight:800; 
+  font-size:1.5rem;   /* ↑ bigger logo */
+  letter-spacing:0.5px;
+}
+
+/* Box styling */
+.box3d {
+  background: #fff;
+  border-radius: 1.5rem;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.1), 0 4px 6px rgba(0,0,0,0.08);
+  border: 1px solid #ddd;
+}
+/* Inherit the global theme colours */
+
+
+/* Grid layout for checkboxes */
+.form-check-group {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px,1fr));
+  gap: 1rem;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+/* Centered target dropdown */
+#targetSelect {
+  display: inline-block;
+  margin-top: 0.5rem;
+  max-width: 320px;
+}
+
+/* Spacing for Select All */
+#selectAll {
+  margin-bottom: 1rem;
+}
+
+/* Responsive: ensure 3/4-width box shrinks on mobile */
+@media (max-width: 767px) {
+  .box3d {
+    max-width: 95vw !important;
+  }
+}
+/* ==== TIGHTEN CHECKBOX + LABEL SPACING ==== */
+.box3d .form-check {
+  display: inline-flex;
+  align-items: center;
+  margin: 0.5rem;       /* controls spacing between each checkbox group */
+  gap: 0.25rem;         /* minimal gap between box and its label */
+}
+
+/* override any transform:scale from global styles */
+#selectAllRow .form-check-input {
+  transform: none;
+  margin: 0;           /* reset any vertical margins */
+  vertical-align: middle;
+}
+/* “Select All” line uses same tight spacing */
+#selectALLRow {
+  display: inline-flex;
+  align-items: center;
+  margin-bottom: 1rem;
+  gap: 0.25rem;
+  vertical-align: middle;
+}
+.form-check-input {
+  accent-color: #1877F2;
+}
+body {
+  /* a light, vertical gradient from very pale blue at top to white at bottom */
+  background: linear-gradient(180deg, #f5f9ff 0%, #ffffff 100%);
+  /* ensure the gradient fills the viewport */
+  min-height: 100vh;
+  margin: 0;
+}
+
+
+@media (min-width: 768px) {
+  /* ────────────────────────────────────────────────────────────────────────── */
+  /* Fix the height of the Features & Feature-Distribution boxes and pin header */
+  /* ────────────────────────────────────────────────────────────────────────── */
+  .container.py-5 > .row.gx-4:first-of-type > .col-md-6 .box3d {
+    height: 360px;            /* fixed height you chose */
+    display: flex;            /* turn on flex layout */
+    flex-direction: column;   /* stack children vertically */
+    justify-content: flex-start;  /* push items to the top */
+    align-items: center;      /* center horizontally */
+    padding-top: 1rem;        /* extra space above header */
+  }
+
+  /* ensure the card titles stay centered */
+  .container.py-5 > .row.gx-4:first-of-type > .col-md-6 .box3d h5 {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+}
+
+
+/* Give extra breathing‐room under the headers in those two cards           */
+
+@media (min-width: 768px) {
+  /* targets only the first .row.gx-4 (the Features + Distribution row) */
+  .container.py-5 > .row.gx-4:first-of-type > .col-md-6 > .box3d h5 {
+    margin-bottom: 3rem !important;
+  }
+  /* optionally nudge the paragraph down a bit in the right card */
+  .container.py-5 > .row.gx-4:first-of-type > .col-md-6:nth-child(2)
+    .box3d p {
+    margin-top: 2rem;
+    margin-left: 2rem;
+  }
+}
+
+/* ─── Fix Features card height & scroll its contents ─── */
+@media (min-width: 768px) {
+  #featuresBox {
+    display: flex;
+    flex-direction: column;
+    height: 360px;       /* match the distribution card height */
+  }
+  #featuresBox #varsContainer {
+    flex: 1 1 auto;      /* fill remaining space */
+    overflow-y: auto;    /* enable vertical scroll */
+    width: 100%;
+  }
+}
+@media (max-width: 767px) {
+  #featuresBox {
+    max-height: 300px;   /* a bit shorter on mobile */
+    overflow-y: auto;
+  }
+}
+#featuresList {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;              /* space between cells */
+  max-height: 300px;      /* fixed height */
+  overflow-y: auto;       /* vertical scroll only */
+}
+
+#featuresList .form-check-label {
+  white-space: normal;    /* allow labels to wrap */
+  word-break: break-word; /* break long words on underscores */
+}
+
+/* Reduce sidebar width */
+.offcanvas.offcanvas-end {
+  width: 250px !important; /* adjust to your liking */
+}
+
+/* Menu title styling */
+#sidebarLabel {
+  font-size: 1.6rem; /* bigger title */
+  font-weight: 700;
+  color: #1877F2; /* pick your theme color */
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Menu link styling */
+.offcanvas-body a {
+  font-size: 1.1rem; /* bigger subtitle text */
+  font-weight: 500;
+  color: #333;
+  display: block;
+  padding: 0.5rem 0;
+  transition: color 0.2s ease;
+}
+
+.offcanvas-body a:hover {
+  color: #1877F2; /* hover color */
+}
+
+
+
+
+

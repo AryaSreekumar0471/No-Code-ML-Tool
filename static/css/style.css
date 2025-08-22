@@ -1,0 +1,144 @@
+:root{
+  --primary:#1877F2;
+  --primary-hover:#155db2;       /* slightly darker */
+  --primary-dark:#0f51a6;         /* even darker for hover-on-header button */
+  --success:#28a745;
+  --text-dark:#333;
+  --white:#fff;
+}
+
+/* Base */
+body{
+  margin:0;
+  padding:0;
+  font-family:"Segoe UI", sans-serif;
+  color:var(--text-dark);
+  background:linear-gradient(180deg,#f5f9ff 0%,#ffffff 100%);
+  min-height:100vh;
+  text-align:center;
+}
+
+/* Header */
+.navbar{
+  background-color:var(--primary);
+  color:var(--white);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:1rem 2rem;
+}
+/* Make navbar height match Class Balance page */
+.navbar {
+  min-height: 43px;  /* Bootstrap default height */
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+
+.logo{ 
+  font-weight:800; 
+  font-size:1.5rem;   /* ↑ bigger logo */
+  letter-spacing:0.5px;
+}
+
+.nav-links{
+  display:flex;
+  gap:1.25rem;
+  align-items:center;
+}
+
+.nav-links a{
+  color:var(--white);
+  text-decoration:none;
+  font-weight:500;
+  display:inline-flex;
+  align-items:center;
+}
+
+/* Buttons */
+.start-btn{
+  display:inline-block;
+  padding:10px 20px; /* back to smaller size */
+  background-color:var(--primary);
+  border:none;
+  color:var(--white);
+  font-weight:700;
+  border-radius:6px;
+  cursor:pointer;
+  text-decoration:none;
+}
+.start-btn:link,
+.start-btn:visited{ text-decoration:none; }
+
+.start-btn:hover{ background-color:var(--primary-hover); }
+
+/* Make the header START look more buttony (darker than the bar) */
+.nav-links .start-btn{
+  background-color:var(--primary-hover);
+}
+.nav-links .start-btn:hover{
+  background-color:var(--primary-dark);
+}
+
+/* Hero */
+.hero{
+  min-height:calc(100vh - 80px); /* full screen minus navbar */
+  display:flex;
+  flex-direction:column;
+  justify-content:center; /* vertical center */
+  align-items:center;     /* horizontal center */
+  padding:0 20px;         /* remove big top padding */
+}
+
+/* New hero typography (used by updated HTML) */
+.hero-title{
+  font-size:3rem;
+  font-weight:800;
+  margin:0 0 20px;
+}
+.hero-title .highlight{ color:var(--primary); }
+
+.hero-subtitle{
+  font-size:1.3rem;
+  max-width:700px;
+  margin:0 auto 30px;
+  line-height:1.6;
+  color:#555;
+}
+
+/* Divider line before workflow */
+.section-divider{
+  width:80%;
+  margin:50px auto;
+  border:none;
+  height:2px;
+  background-color:#ddd;
+}
+
+/* --- SimpliML Workflow section --- */
+.workflow-wrap{
+  max-width:1100px;
+  margin:0 auto 80px;
+  padding:0 20px;
+  text-align:center;
+}
+
+.workflow-title{
+  font-size:1.9rem;
+  margin:10px 0 18px;
+  color:#333;
+}
+
+.workflow-img{
+  width:100%;
+  height:auto;
+  border-radius:12px;
+}
+
+.workflow-caption{
+  max-width:900px;
+  margin:14px auto 0;
+  color:#555;
+  line-height:1.55;
+  font-size:0.98rem;
+}

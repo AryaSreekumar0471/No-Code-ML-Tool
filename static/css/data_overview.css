@@ -1,0 +1,159 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #fff;
+  margin: 0;
+}
+
+/* Inherit the global theme colours */
+:root{
+  --primary:#1877F2;
+  --primary-hover:#155db2;
+  --primary-dark:#0f51a6;
+  --success:#28a745;
+  --text-dark:#333;
+  --white:#fff;
+}
+
+/* Match the header styling from home page */
+.navbar{
+  background-color: var(--primary) !important;
+  color: var(--white);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  min-height: 43px;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.logo{ 
+  font-weight:800; 
+  font-size:1.5rem;   /* ↑ bigger logo */
+  letter-spacing:0.5px;
+}
+
+.box3d {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 1rem;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.summary-box {
+  padding: 20px;
+}
+
+.chip-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.chip {
+  padding: 6px 12px;
+  border: 1px solid #1877F2;
+  color: #1877F2;
+  border-radius: 16px;
+  font-weight: 500;
+}
+
+.target-chip {
+  background: #1877F2;
+  color: #fff;
+  border-color: #1877F2;
+}
+
+.explanation {
+  max-width: 700px;
+  margin: 0 auto 1.5rem;
+  color: #555;
+}
+
+.split-box {
+  padding: 1rem;
+}
+
+.slider-container {
+  position: relative;
+}
+
+#ratioSlider {
+  width: 100%;
+  accent-color: #1877F2; 
+  margin-top: 1rem;
+}
+
+.slider-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  color: #666;
+  margin-top: 0.5rem;
+}
+
+.counts-display {
+  font-size: 1.1rem;
+  color: #333;
+}
+
+.btn-outline-dark {
+  color: #000;
+  border-color: #000;
+}
+
+.btn-outline-dark:hover {
+  background: #000;
+  color: #fff;
+}
+
+.btn-primary {
+  background: #1877F2;
+  border-color: #1877F2;
+}
+
+.btn-primary:hover {
+  background: #145dbf;
+  border-color: #145dbf;
+}
+.form-range {
+  width: 100%;
+  height: 1.4rem;
+  padding: 0;
+  background-color: transparent;
+  /* …plus vendor-prefixed appearances and focus styles… */
+}
+/* Reduce sidebar width */
+.offcanvas.offcanvas-end {
+  width: 250px !important; /* adjust to your liking */
+}
+
+/* Menu title styling */
+#sidebarLabel {
+  font-size: 1.6rem; /* bigger title */
+  font-weight: 700;
+  color: #1877F2; /* pick your theme color */
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Menu link styling */
+.offcanvas-body a {
+  font-size: 1.1rem; /* bigger subtitle text */
+  font-weight: 500;
+  color: #333;
+  display: block;
+  padding: 0.5rem 0;
+  transition: color 0.2s ease;
+}
+
+.offcanvas-body a:hover {
+  color: #1877F2; /* hover color */
+}
+
+
+
+
+

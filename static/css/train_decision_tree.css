@@ -1,0 +1,244 @@
+body {
+  background: #f8f9fa;
+}
+
+.box3d {
+  background: #fff;
+  border: 2px solid #e7eaf3;
+  border-radius: 2rem;
+  box-shadow: 0 8px 36px rgba(24,119,242,0.13);
+}
+/* Inherit the global theme colours */
+:root{
+  --primary:#1877F2;
+  --primary-hover:#155db2;
+  --primary-dark:#0f51a6;
+  --success:#28a745;
+  --text-dark:#333;
+  --white:#fff;
+}
+
+/* Match the header styling from home page */
+.navbar{
+  background-color: var(--primary) !important;
+  color: var(--white);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  min-height: 43px;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.logo{ 
+  font-weight:800; 
+  font-size:1.5rem;   /* ↑ bigger logo */
+  letter-spacing:0.5px;
+}
+
+/* Result box at half the window width */
+#resultBox {
+  transition: opacity 0.6s cubic-bezier(.18,1.2,.31,1.04);
+  font-size: 1.15rem;
+  max-width: 50vw;
+  min-width: 320px;
+}
+
+/* Less bold and smaller text inside results */
+.result-metrics div {
+  font-size: 1.10rem;
+  font-weight: 500;
+  color: #222;
+}
+
+#resultBox h2 {
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+/* Train button: blue background, white text */
+.btn-primary {
+  background-color: #1877F2 !important;
+  color: #fff !important;
+  font-weight: 600;
+  border-radius: 1rem;
+  border: none;
+}
+
+/* Plot buttons: blue outline, white bg, blue on hover */
+.btn-outline-primary {
+  color: #1877F2 !important;
+  border: 2px solid #1877F2 !important;
+  background: #fff !important;
+  font-weight: 600;
+  border-radius: 1rem;
+  transition: background 0.2s, color 0.2s;
+}
+.btn-outline-primary:hover, .btn-outline-primary:focus {
+  background: #1877F2 !important;
+  color: #fff !important;
+}
+
+.btn-primary:disabled,
+.btn-outline-primary:disabled {
+  opacity: 0.65;
+  pointer-events: none;
+}
+
+/* Remove 3D effect from bottom buttons */
+.btn-3d {
+  box-shadow: none !important;
+  background: none !important;
+  color: #1877F2 !important;
+  border: none !important;
+}
+
+/* Responsive for small screens */
+@media (max-width: 900px) {
+  #resultBox { max-width: 95vw; }
+}
+
+
+#resultBox {
+  transition: opacity 0.6s cubic-bezier(.18,1.2,.31,1.04);
+  font-size: 1.15rem;
+  width: 60vw;
+  min-width: 320px;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 2rem;
+  box-shadow: 0 8px 36px rgba(24,119,242,0.13);
+  background: #fff;
+  border: 2px solid #e7eaf3;
+}
+@media (max-width: 900px) {
+  #resultBox { width: 95vw; }
+}
+#plotButtons {
+  margin-bottom: 100px !important;
+}
+.bottom-action-row {
+  width: 100vw !important;
+  max-width: none !important;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0 0vw;
+  margin-bottom: 40px !important;
+  margin-top: 0 !important;
+}
+
+.left-action-btn {
+  margin-left: 8vw;  /* Small gap from left edge */
+}
+
+.right-action-btn {
+  margin-right: 0vw;      /* Adjust this to move closer to right edge */
+}
+
+/* On small screens, avoid overflow */
+@media (max-width: 900px) {
+  .right-action-btn { margin-right: 5vw; }
+  .left-action-btn  { margin-left: 5vw; }
+  .bottom-action-row { width: 98vw !important; }
+}
+
+/* --- Summary formatting --- */
+.summary .section-title {
+  margin-top: 1rem;
+  font-weight: 700;
+  color: #232323;
+}
+
+.summary .summary-list {
+  margin: 0.25rem 0 0.5rem 1rem;
+}
+
+.summary .summary-list li {
+  margin: 0.15rem 0;
+}
+
+.summary .kv {
+  margin: 0.2rem 0;
+}
+
+.summary .kv > span {
+  display: inline-block;
+  min-width: 180px;   /* label width */
+  color: #555;
+}
+
+.summary .kv.small {
+  font-size: 0.95rem;
+  color: #444;
+}
+/* Bigger, bolder summary heading */
+.summary-title {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #1877F2;
+}
+
+/* Center-align the whole summary block */
+.summary {
+  text-align: center;
+}
+
+/* Keep labels tidy when centered */
+.summary .kv > span {
+  min-width: 0;
+  margin-right: 4px;
+  color: #555;
+}
+
+/* Center bullets nicely */
+.summary .summary-list {
+  margin: 0.25rem 0 0.5rem 0;
+  padding-left: 0;
+  list-style: none;
+  list-style-position: inside;
+  margin-left: 0;
+}
+
+/* Make the download button match the header color */
+#downloadResultsBtn {
+  background-color: #1877F2 !important;  /* header blue */
+  border-color: #1877F2 !important;
+  color: #fff !important;
+}
+
+#downloadResultsBtn:hover,
+#downloadResultsBtn:focus {
+  background-color: #1877F2 !important;  /* keep same color on hover */
+  border-color: #1877F2 !important;
+  color: #fff !important;
+  box-shadow: 0 0 0 0.2rem rgba(24,119,242,0.2);
+}
+/* Reduce sidebar width */
+.offcanvas.offcanvas-end {
+  width: 250px !important; /* adjust to your liking */
+}
+
+/* Menu title styling */
+#sidebarLabel {
+  font-size: 1.6rem; /* bigger title */
+  font-weight: 700;
+  color: #1877F2; /* pick your theme color */
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Menu link styling */
+.offcanvas-body a {
+  font-size: 1.1rem; /* bigger subtitle text */
+  font-weight: 500;
+  color: #333;
+  display: block;
+  padding: 0.5rem 0;
+  transition: color 0.2s ease;
+}
+
+.offcanvas-body a:hover {
+  color: #1877F2; /* hover color */
+}

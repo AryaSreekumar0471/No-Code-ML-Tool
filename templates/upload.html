@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Upload Dataset</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+
+  <!-- Global and Page-specific styles -->
+  <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet" />
+  <link href="{{ url_for('static', filename='css/upload.css') }}" rel="stylesheet" />
+</head>
+
+<body class="bg-white">
+  <!-- NAVBAR -->
+  <nav class="navbar navbar-dark" style="background-color:#1877F2;">
+    <div class="container-fluid">
+      <span class="navbar-brand logo">SimpliML</span>
+      <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar" aria-controls="sidebar">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- OFFCANVAS SIDEBAR -->
+  <div class="offcanvas offcanvas-end" tabindex="-1" id="sidebar" aria-labelledby="sidebarLabel">
+    <div class="offcanvas-header">
+      <h5 id="sidebarLabel">Menu</h5>
+      <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+      <ul class="list-unstyled">
+        <li><a href="/" class="text-decoration-none">Home</a></li>
+        
+      </ul>
+    </div>
+  </div>
+
+  <!-- MAIN CONTAINER -->
+  <div class="container py-5">
+    <div class="upload-box mx-auto">
+      <h3 class="text-center mb-4">Upload Dataset</h3>
+
+      <div id="dropzone" class="dropzone mb-3 text-center">
+        <i class="bi bi-cloud-arrow-up-fill display-4 text-secondary"></i>
+        <p id="dz-msg-1" class="mt-2">Drag and Drop a file</p>
+        <p>or</p>
+        <button id="browseBtn" class="btn btn-outline-dark btn-sm mb-2">Browse file</button>
+        <input type="file" id="fileInput" accept=".csv" hidden />
+        <p class="text-muted small mb-1">Support csv file only</p>
+        <p id="errorMsg" class="text-danger small mb-0"></p>
+      </div>
+
+      <div class="text-center">
+        <button id="uploadBtn" class="btn btn-primary">Upload</button>
+      </div>
+    </div>
+
+    <div id="progressContainer" class="mt-4 text-center align-items-center" style="display: none;">
+      <span id="progressPercent">0%</span>
+      <span id="fileName" class="ms-2"></span> 
+
+      <i id="tickIcon" class="bi bi-check-circle-fill text-success ms-3"></i>
+      <i id="crossIcon" class="bi bi-x-circle-fill text-danger ms-2"></i>
+    </div>
+
+    <div class="text-center mt-4">
+
+      <button
+       id="previewBtn"
+       class="btn btn-success"
+       type="button"
+       data-bs-toggle="modal"
+       data-bs-target="#previewModal"
+      {% if not preview %}disabled{% endif %}
+>
+       Preview
+     </button>
+
+  </div>
+      
+    
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="{{ url_for('static', filename='js/upload.js') }}"></script>
+
+   <!-- Modal: Data Preview -->
+<div class="modal fade" id="previewModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Data Preview</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="preview-container">
+          {{ preview | safe }}
+        </div>
+      </div>
+      <div class="modal-footer">
+        <a href="{{ url_for('preprocess_page') }}" class="btn btn-primary">Next</a>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Only trigger if we just loaded preview=true AND the URL hash is #previewModal
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('preview') === 'true' && window.location.hash === '#previewModal') {
+      // Bootstrap 5 way to programmatically show a modal
+      const previewModal = new bootstrap.Modal(document.getElementById('previewModal'));
+      previewModal.show();
+    }
+  });
+</script>
+
+
+
+</body>
+</html>

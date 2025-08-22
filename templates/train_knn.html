@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Train &amp; Evaluate: KNN</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="{{ url_for('static', filename='css/train_knn.css') }}" rel="stylesheet"/>
+  <script src="https://cdn.plot.ly/plotly-2.24.1.min.js"></script>
+</head>
+
+<body class="bg-light">
+  <nav class="navbar navbar-dark" style="background-color:#1877F2;">
+    <div class="container-fluid">
+      <span class="navbar-brand logo">SimpliML</span>
+      <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </div>
+  </nav>
+  <div class="offcanvas offcanvas-end" tabindex="-1" id="sidebar">
+    <div class="offcanvas-header">
+      <h5 id="sidebarLabel" class="offcanvas-title">Menu</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+    </div>
+    <div class="offcanvas-body">
+      <ul class="list-unstyled">
+        <li><a href="/">Home</a></li>
+        <li><a href="/upload">Upload</a></li>
+        <li><a href="/preprocess_page">Preprocess</a></li>
+        <li><a href="/select_features">Feature Selection</a></li>
+        <li><a href="/select_features">Train/Test Split</a></li>
+        <li><a href="/class_balance">Class balence </a></li>
+        <li><a href="/model_selection">Model Selection</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <main class="container py-5 d-flex flex-column align-items-center justify-content-center" style="min-height: 75vh;">
+    <h1 class="text-center mb-5" style="color:#232323;">Train and Evaluate</h1>
+
+    <!-- Model Summary Box (REPLACE this whole card) -->
+<div class="box3d p-4 mb-5 w-100" style="max-width:95vw;">
+  <div class="summary text-center mx-auto" style="max-width: 960px;">
+    <h4 class="mb-3 text-center summary-title">Model summary</h4>
+
+    <p class="kv"><span>Model:</span> <strong>{{ session.get('model_name','KNN') }}</strong></p>
+    <p class="kv"><span>Dataset:</span> {{ session.get('dataset_name','—') }}</p>
+
+    <div class="section-title">Preprocessing Steps:</div>
+    <ul class="summary-list">
+      {% for line in session.get('preprocess_summary', []) %}
+        <li>{{ line }}</li>
+      {% endfor %}
+      {% if not session.get('preprocess_summary') %}
+        <li>No preprocessing steps recorded.</li>
+      {% endif %}
+    </ul>
+
+    <!-- Data Split moved here -->
+    <div class="section-title">Data Split:</div>
+    {% set sr = session.get('split_ratio') %}
+    <p class="kv">
+      <span>Train/Test Split:</span>
+      {% if sr %}
+        {{ (sr.train*100)|round(0)|int }} : {{ (sr.test*100)|round(0)|int }}
+      {% else %} — {% endif %}
+    </p>
+
+    <p class="kv">Train set size: {{ session.get('train_size','—') }} rows</p>
+    <p class="kv">Test set size: {{ session.get('test_size','—') }} rows</p>
+
+    <!-- Class Balancing now comes after Data Split -->
+    <div class="section-title">Class Balancing:</div>
+    <p class="kv"><span>Method:</span>
+      {% if session.get('balance_method') %}
+        {% set m = session['balance_method'] %}
+        {% if m == 'under' %}Undersampling
+        {% elif m == 'over' %}Oversampling
+        {% elif m == 'both' %}Both over and under sampling
+        {% else %}{{ m }}
+        {% endif %}
+      {% else %}
+        None
+      {% endif %}
+    </p>
+
+    <p class="kv small">
+      <em>Before:</em>
+      {% set before = session.get('class_counts_before', {}) %}
+      {% if before %}
+        {% for k,v in before.items() %}
+          Class {{k}} = {{v}}{{ ", " if not loop.last else "" }}
+        {% endfor %}
+      {% else %} n/a {% endif %}
+    </p>
+    <p class="kv small">
+      <em>After:</em>
+      {% set after = session.get('class_counts_after', {}) %}
+      {% if after %}
+        {% for k,v in after.items() %}
+          Class {{k}} = {{v}}{{ ", " if not loop.last else "" }}
+        {% endfor %}
+      {% else %} (no re-balance applied) {% endif %}
+    </p>
+
+    <p class="kv"><span>Features:</span> {{ session.get('selected_features', [])|join(', ') }}</p>
+    <p class="kv"><span>Target:</span> {{ session.get('selected_target','') }}</p>
+    <p class="kv"><span>Cross-validation:</span> {{ session.get('cv_folds',5) }} folds</p>
+  </div>
+</div>
+
+    <div class="d-flex justify-content-center mb-5">
+      <button id="trainBtn" class="btn btn-primary btn-lg px-5">Train</button>
+    </div>
+
+    <div id="resultBox" class="box3d p-5 mt-5 mx-auto" style="max-width:50vw; display:none; opacity:0;">
+      <h2 class="text-center mb-4">Training Result</h2>
+      <div id="metrics" class="text-center result-metrics"></div>
+      <div class="text-center mt-4">
+        <button id="downloadResultsKnnBtn" class="btn btn-outline-primary px-4 py-2" style="display:none;">
+          Download Results (.xlsx)
+        </button>
+      </div>
+    </div>
+
+    <div id="plotButtons" class="justify-content-center align-items-center gap-4 mt-4" style="display:none;">
+      <button id="showErrBtn" class="btn btn-outline-primary px-4 py-2">Show Error vs. k</button>
+      <button id="showBoundBtn" class="btn btn-outline-primary px-4 py-2">Show Decision Boundary</button>
+      <button id="showCMBtn" class="btn btn-outline-primary px-4 py-2">Show Confusion Matrix</button>
+    </div>
+
+    <div class="d-flex justify-content-between align-items-center bottom-action-row mt-5">
+      <button class="btn btn-primary px-4 py-2 left-action-btn" onclick="window.location.href='/model_selection'">Train another model</button>
+      <button id="experimentBtn" class="btn btn-primary px-4 py-2 right-action-btn" disabled>Experiment with model</button>
+    </div>
+
+    <!-- Plot Modal -->
+    <div id="plotModal" class="modal fade" tabindex="-1">
+      <div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="plotTitle"></h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body" id="plotBody" style="overflow-x:auto; min-height:480px"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Loading Modal -->
+    <div class="modal" tabindex="-1" id="loadingModal">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content text-center">
+          <div class="modal-body py-5">
+            <div class="spinner-border text-primary mb-3" role="status" style="width: 3rem; height: 3rem;">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+            <h5 class="mt-2">Training model, please wait…</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="{{ url_for('static', filename='js/train_knn.js') }}"></script>
+</body>
+</html>

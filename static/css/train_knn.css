@@ -1,0 +1,171 @@
+body {
+  background: #f8f9fa;
+}
+/* Inherit the global theme colours */
+:root{
+  --primary:#1877F2;
+  --primary-hover:#155db2;
+  --primary-dark:#0f51a6;
+  --success:#28a745;
+  --text-dark:#333;
+  --white:#fff;
+}
+
+/* Match the header styling from home page */
+.navbar{
+  background-color: var(--primary) !important;
+  color: var(--white);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  min-height: 43px;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+.logo{ 
+  font-weight:800; 
+  font-size:1.5rem;   /* ↑ bigger logo */
+  letter-spacing:0.5px;
+}
+
+
+.box3d {
+  background: #fff;
+  border: 2px solid #e7eaf3;
+  border-radius: 2rem;
+  box-shadow: 0 8px 36px rgba(24,119,242,0.13);
+}
+
+#resultBox {
+  transition: opacity 0.6s cubic-bezier(.18,1.2,.31,1.04);
+  font-size: 1.15rem;
+  width: 60vw;
+  min-width: 320px;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 2rem;
+  box-shadow: 0 8px 36px rgba(24,119,242,0.13);
+  background: #fff;
+  border: 2px solid #e7eaf3;
+}
+@media (max-width: 900px) {
+  #resultBox { width: 95vw; }
+}
+
+.result-metrics div {
+  font-size: 1.10rem;
+  font-weight: 500;
+  color: #222;
+}
+
+#resultBox h2 {
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+.btn-primary {
+  background-color: #1877F2 !important;
+  color: #fff !important;
+  font-weight: 600;
+  border-radius: 1rem;
+  border: none;
+}
+
+.btn-outline-primary {
+  color: #1877F2 !important;
+  border: 2px solid #1877F2 !important;
+  background: #fff !important;
+  font-weight: 600;
+  border-radius: 1rem;
+  transition: background 0.2s, color 0.2s;
+}
+.btn-outline-primary:hover, .btn-outline-primary:focus {
+  background: #1877F2 !important;
+  color: #fff !important;
+}
+
+.btn-primary:disabled,
+.btn-outline-primary:disabled {
+  opacity: 0.65;
+  pointer-events: none;
+}
+
+.bottom-action-row {
+  width: 100vw !important;
+  max-width: none !important;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0;
+  margin-bottom: 40px !important;
+}
+
+.left-action-btn {
+  margin-left: 8vw;
+}
+.right-action-btn {
+  margin-right: 0vw;
+}
+
+@media (max-width: 900px) {
+  .right-action-btn { margin-right: 2vw; }
+  .left-action-btn  { margin-left: 5vw; }
+  .bottom-action-row { width: 98vw !important; }
+}
+/* --- Summary formatting (match Decision Tree page) --- */
+.summary .section-title {
+  margin-top: 1rem;
+  font-weight: 700;
+  color: #232323;
+}
+.summary .summary-list {
+  margin: 0.25rem 0 0.5rem 0;
+  padding-left: 0;
+  list-style: none;
+}
+.summary .summary-list li { margin: 0.15rem 0; }
+.summary .kv { margin: 0.2rem 0; }
+.summary .kv > span { display: inline-block; min-width: 0; margin-right: 4px; color: #555; }
+.summary { text-align: center; }
+.summary-title { font-size: 2rem; font-weight: 800; color: #1877F2; }
+
+/* Download button = header blue */
+#downloadResultsKnnBtn {
+  background-color: #1877F2 !important;
+  border-color: #1877F2 !important;
+  color: #fff !important;
+}
+#downloadResultsKnnBtn:hover, #downloadResultsKnnBtn:focus {
+  background-color: #1877F2 !important;
+  border-color: #1877F2 !important;
+  color: #fff !important;
+  box-shadow: 0 0 0 0.2rem rgba(24,119,242,0.2);
+}
+/* Reduce sidebar width */
+.offcanvas.offcanvas-end {
+  width: 250px !important; /* adjust to your liking */
+}
+
+/* Menu title styling */
+#sidebarLabel {
+  font-size: 1.6rem; /* bigger title */
+  font-weight: 700;
+  color: #1877F2; /* pick your theme color */
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Menu link styling */
+.offcanvas-body a {
+  font-size: 1.1rem; /* bigger subtitle text */
+  font-weight: 500;
+  color: #333;
+  display: block;
+  padding: 0.5rem 0;
+  transition: color 0.2s ease;
+}
+
+.offcanvas-body a:hover {
+  color: #1877F2; /* hover color */
+}

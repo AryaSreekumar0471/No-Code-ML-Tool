@@ -1,0 +1,13 @@
+{
+  // turn off both JS & TS validation everywhere
+  "javascript.validate.enable": false,
+  "typescript.validate.enable": false,
+
+  // also turn off the HTML validator’s script‐checking
+  "html.validate.scripts": false,
+
+  // (optional) tell VS Code to treat your Jinja templates as Jinja, not plain HTML
+  "files.associations": {
+    "templates/**/*.html": "jinja-html"
+  }
+}
